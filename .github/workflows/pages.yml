@@ -23,10 +23,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      
       - name: Validate homepage
         run: |
+          set -e
           test -f index.html
-          echo "Homepage exists"
+          grep -qi '<!doctype html' index.html
+          grep -qi '<html' index.html
+          grep -qi '<title' index.html
+          grep -qi '<body' index.html
+          echo "HTML checks passed"
+
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
